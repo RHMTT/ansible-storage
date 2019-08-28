@@ -1,5 +1,6 @@
 ---
 - hosts: ontap
+  gather_facts: false
   name: Setup ONTAP
   vars:
     #hostname: "172.32.0.182"

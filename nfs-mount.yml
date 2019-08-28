@@ -1,0 +1,17 @@
+---
+- hosts: web
+  tasks:
+  - name: Update fstab file
+    lineinfile:
+      path: /etc/fstab
+      line: "{{data_ips}}:/{{ volname }} /mnt/ontap nfs defaults 0 0"
+  - name: Verify mount directory exists
+    file:
+      path: /mnt/ontap
+      state: directory
+  - name: Mount nfs export
+    mount:
+      state: "{{ state }}"
+      path: /mnt/ontap
+      src: "{{data_ips}}:/{{ volname }}"
+      fstype: nfs

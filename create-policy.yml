@@ -6,7 +6,7 @@
     hostname: "{{ inventory_hostname }}"
     username: "admin"
     volname: ansibleVolume
-    vserver: vserver1
+    #vserver: vserver1
     aggr: aggr1
     policy: ansiblePolicy
     state: present

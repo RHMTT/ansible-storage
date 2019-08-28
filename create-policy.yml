@@ -23,10 +23,9 @@
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"
     connection: local
-    
+
   - name: Setup rules
     na_ontap_export_policy_rule:
-    connection: local
       state: "{{ state }}"
       policy_name: "{{ policy }}"
       vserver: "{{ vserver }}"
@@ -37,6 +36,7 @@
       hostname: "{{ hostname }}"
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"
+    connection: local
 #  - name: Create volume
 #    na_ontap_volume:
 #      state: "{{ state }}"

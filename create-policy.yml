@@ -20,27 +20,29 @@
   - name: Create Policy
     na_ontap_export_policy:
       state: "{{ state }}"
-      name: "{{ policy }}"
+      name: "{{ item }}"
       vserver: "{{ vserver }}"
       hostname: "{{ inventory_hostname }}"
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"
     connection: local
-
-  - name: Setup rules
-    na_ontap_export_policy_rule:
-      state: absent
-      policy_name: "{{ item }}"
-      vserver: "{{ vserver }}"
-      client_match: 0.0.0.0/0
-      ro_rule: any
-      rw_rule: any
-      super_user_security: any
-      hostname: "{{ hostname }}"
-      username: "{{ netapp_username }}"
-      password: "{{ netapp_password}}"
-    connection: local
     with_items: "{{ policy }}"
+    ignore_errors: yes
+
+#  - name: Setup rules
+#    na_ontap_export_policy_rule:
+#      state: absent
+#      policy_name: "{{ item }}"
+#      vserver: "{{ vserver }}"
+#      client_match: 0.0.0.0/0
+#      ro_rule: any
+#      rw_rule: any
+#      super_user_security: any
+#      hostname: "{{ hostname }}"
+#      username: "{{ netapp_username }}"
+#      password: "{{ netapp_password}}"
+#    connection: local
+#    with_items: "{{ policy }}"
 #  - name: Create volume
 #    na_ontap_volume:
 #      state: "{{ state }}"

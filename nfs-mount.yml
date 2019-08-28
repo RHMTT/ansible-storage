@@ -23,4 +23,4 @@
     command: df -h
     register: output
 
-  - debug: var=output.output
+  - debug: var=output.stdout

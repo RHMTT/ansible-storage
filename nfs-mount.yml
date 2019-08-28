@@ -19,3 +19,8 @@
       path: /mnt/ontap
       src: "{{data_ips}}:/{{ volname }}"
       fstype: nfs
+  - name: Show volume is mounted
+    command: df -h
+    register: output
+
+  - debug: var=output

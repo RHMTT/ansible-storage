@@ -8,7 +8,7 @@
     volname: ansibleVolume
     #vserver: vserver1
     aggr: aggr1
-    policy: ansiblePolicy
+    policy: export-svm_citi_student1-ansibleVol2
     state: present
 #  vars_prompt:
 #  - name: "password"

@@ -10,12 +10,13 @@
     aggr: aggr1
     policy: ansiblePolicy
     state: present
-#  vars_prompt: 
-#  - name: "password" 
-#    prompt: "Password:" 
+#  vars_prompt:
+#  - name: "password"
+#    prompt: "Password:"
   tasks:
   - name: Create Policy
     na_ontap_export_policy:
+    connection: local
       state: "{{ state }}"
       name: "{{ policy }}"
       vserver: "{{ vserver }}"
@@ -24,6 +25,7 @@
       password: "{{ netapp_password}}"
   - name: Setup rules
     na_ontap_export_policy_rule:
+    connection: local
       state: "{{ state }}"
       policy_name: "{{ policy }}"
       vserver: "{{ vserver }}"

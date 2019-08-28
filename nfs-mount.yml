@@ -1,5 +1,9 @@
 ---
 - hosts: web
+  vars:
+    volname: ansibleVol1
+    state: present
+    
   tasks:
   - name: Update fstab file
     lineinfile:

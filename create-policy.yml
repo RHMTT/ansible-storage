@@ -16,13 +16,14 @@
   tasks:
   - name: Create Policy
     na_ontap_export_policy:
-    connection: local
       state: "{{ state }}"
       name: "{{ policy }}"
       vserver: "{{ vserver }}"
       hostname: "{{ inventory_hostname }}"
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"
+    connection: local
+    
   - name: Setup rules
     na_ontap_export_policy_rule:
     connection: local

@@ -9,9 +9,9 @@
     #vserver: vserver1
     aggr: aggr1
     policy:
-      - export-svm_citi_student1-ansibleVol2
-      - export-svm_citi_student1
-      - ansiblePolicy
+      - export-svm_citi_student1-ansibleVol1
+      #- export-svm_citi_student1
+      #- ansiblePolicy
     state: present
 #  vars_prompt:
 #  - name: "password"
@@ -19,7 +19,7 @@
   tasks:
   - name: Create Policy
     na_ontap_export_policy:
-      state: absent
+      state: present
       name: "{{ item }}"
       vserver: "{{ vserver }}"
       hostname: "{{ inventory_hostname }}"
@@ -29,20 +29,20 @@
     with_items: "{{ policy }}"
     ignore_errors: yes
 
-#  - name: Setup rules
-#    na_ontap_export_policy_rule:
-#      state: absent
-#      policy_name: "{{ item }}"
-#      vserver: "{{ vserver }}"
-#      client_match: 0.0.0.0/0
-#      ro_rule: any
-#      rw_rule: any
-#      super_user_security: any
-#      hostname: "{{ hostname }}"
-#      username: "{{ netapp_username }}"
-#      password: "{{ netapp_password}}"
-#    connection: local
-#    with_items: "{{ policy }}"
+ - name: Setup rules
+   na_ontap_export_policy_rule:
+     state: present
+     policy_name: "{{ item }}"
+     vserver: "{{ vserver }}"
+     client_match: 172.48.0.0/16
+     ro_rule: any
+     rw_rule: any
+     super_user_security: any
+     hostname: "{{ hostname }}"
+     username: "{{ netapp_username }}"
+     password: "{{ netapp_password}}"
+   connection: local
+   with_items: "{{ policy }}"
 #  - name: Create volume
 #    na_ontap_volume:
 #      state: "{{ state }}"

@@ -1,65 +1,67 @@
---- 
+---
 - hosts: ontap
-  name: Setup ONTAP 
-  vars: 
-    hostname: "172.32.0.182" 
-    username: "admin" 
-    volname: ansibleVolume 
-    vserver: vserver1 
-    aggr: aggr1 
-    policy: ansiblePolicy 
-    state: present 
-  vars_prompt: 
-  - name: "password" 
-    prompt: "Password:" 
-  tasks: 
-  - name: Create Policy 
-    na_ontap_export_policy: 
-      state: "{{ state }}" 
-      name: "{{ policy }}" 
-      vserver: "{{ vserver }}" 
-      hostname: "{{ hostname }}" 
-      username: "{{ username }}" 
-      password: "{{ password }}" 
-  - name: Setup rules 
-    na_ontap_export_policy_rule: 
-      state: "{{ state }}" 
-      policy_name: "{{ policy }}" 
-      vserver: "{{ vserver }}" 
-      client_match: 0.0.0.0/0  
-      ro_rule: sys 
-      rw_rule: sys 
-      super_user_security: sys 
-      hostname: "{{ hostname }}" 
-      username: "{{ username }}" 
-      password: "{{ password }}" 
-  - name: Create volume 
-    na_ontap_volume: 
-      state: "{{ state }}" 
-      name: "{{ volname }}" 
-      aggregate_name: "{{ aggr }}" 
-      size: 1 
-      size_unit: gb 
-      policy: "{{ policy }}" 
-      junction_path: "/{{ volname }}" 
-      space_guarantee: "none" 
-      vserver: "{{ vserver }}" 
-      hostname: "{{ hostname }}" 
-      username: "{{ username }}" 
-      password: "{{ password }}" 
-- hosts: client 
-  tasks: 
-  - name: Update fstab file 
-    lineinfile: 
-      path: /etc/fstab 
-      line: "172.32.0.184:/{{ volname }} /mnt/ontap nfs defaults 0 0" 
-  - name: Verify mount directory exists 
-    file: 
-      path: /mnt/ontap 
-      state: directory 
-  - name: Mount nfs export 
-    mount: 
-      state: "{{ state }}" 
-      path: /mnt/ontap 
-      src: "172.32.0.184:/{{ volname }}" 
-      fstype: nfs
+  name: Setup ONTAP
+  vars:
+    #hostname: "172.32.0.182"
+    hostname: "{{ inventory_hostname }}"
+    username: "admin"
+    volname: ansibleVolume
+    vserver: vserver1
+    aggr: aggr1
+    policy: ansiblePolicy
+    state: present
+#  vars_prompt: 
+#  - name: "password" 
+#    prompt: "Password:" 
+  tasks:
+  - name: Create Policy
+    na_ontap_export_policy:
+      state: "{{ state }}"
+      name: "{{ policy }}"
+      vserver: "{{ vserver }}"
+      hostname: "{{ inventory_hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password}}"
+  - name: Setup rules
+    na_ontap_export_policy_rule:
+      state: "{{ state }}"
+      policy_name: "{{ policy }}"
+      vserver: "{{ vserver }}"
+      client_match: 0.0.0.0/0
+      ro_rule: sys
+      rw_rule: sys
+      super_user_security: sys
+      hostname: "{{ hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password}}"
+#  - name: Create volume
+#    na_ontap_volume:
+#      state: "{{ state }}"
+#      name: "{{ volname }}"
+#      aggregate_name: "{{ aggr }}"
+#      size: 1
+#      size_unit: gb
+#      policy: "{{ policy }}"
+#      junction_path: "/{{ volname }}"
+#      space_guarantee: "none"
+#      vserver: "{{ vserver }}"
+#      hostname: "{{ hostname }}"
+#      username: "{{ netapp_username }}"
+#      password: "{{ netapp_password}}"
+#- hosts: client
+#  tasks:
+#  - name: Update fstab file
+#    lineinfile:
+#      path: /etc/fstab
+#      line: "172.32.0.184:/{{ volname }} /mnt/ontap nfs defaults 0 0"
+#  - name: Verify mount directory exists
+#    file:
+#      path: /mnt/ontap
+#      state: directory
+#  - name: Mount nfs export
+#    mount:
+#      state: "{{ state }}"
+#      path: /mnt/ontap
+#      src: "172.32.0.184:/{{ volname }}"
+#      fstype: nfs
+#

@@ -29,21 +29,21 @@
     with_items: "{{ policy }}"
     ignore_errors: yes
 
- - name: Setup rules
-   na_ontap_export_policy_rule:
-     state: present
-     policy_name: "{{ item }}"
-     vserver: "{{ vserver }}"
-     client_match: 172.48.0.0/16
-     ro_rule: any
-     rw_rule: any
-     super_user_security: any
-     hostname: "{{ hostname }}"
-     username: "{{ netapp_username }}"
-     password: "{{ netapp_password}}"
-   connection: local
-   with_items: "{{ policy }}"
-#  - name: Create volume
+  - name: Setup rules
+    na_ontap_export_policy_rule:
+      state: present
+      policy_name: "{{ item }}"
+      vserver: "{{ vserver }}"
+      client_match: 172.48.0.0/16
+      ro_rule: any
+      rw_rule: any
+      super_user_security: any
+      hostname: "{{ hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password}}"
+    connection: local
+    with_items: "{{ policy }}"
+#   - name: Create volume
 #    na_ontap_volume:
 #      state: "{{ state }}"
 #      name: "{{ volname }}"

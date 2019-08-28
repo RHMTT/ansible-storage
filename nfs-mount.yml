@@ -21,6 +21,6 @@
       fstype: nfs
   - name: Show volume is mounted
     command: df -h
-    register: output
+    register: output.stdout
 
-  - debug: var=output.stdout
+  - debug: var=output

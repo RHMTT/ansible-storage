@@ -19,7 +19,7 @@
   tasks:
   - name: Create Policy
     na_ontap_export_policy:
-      state: "{{ state }}"
+      state: absent
       name: "{{ item }}"
       vserver: "{{ vserver }}"
       hostname: "{{ inventory_hostname }}"

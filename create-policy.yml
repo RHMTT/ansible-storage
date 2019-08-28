@@ -8,7 +8,10 @@
     volname: ansibleVolume
     #vserver: vserver1
     aggr: aggr1
-    policy: export-svm_citi_student1-ansibleVol2
+    policy:
+      - export-svm_citi_student1-ansibleVol2
+      - export-svm_citi_student1
+      - ansiblePolicy
     state: present
 #  vars_prompt:
 #  - name: "password"
@@ -27,7 +30,7 @@
   - name: Setup rules
     na_ontap_export_policy_rule:
       state: absent
-      policy_name: "{{ policy }}"
+      policy_name: "{{ item }}"
       vserver: "{{ vserver }}"
       client_match: 0.0.0.0/0
       ro_rule: any
@@ -37,6 +40,7 @@
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"
     connection: local
+    with_items: "{{ policy }}"
 #  - name: Create volume
 #    na_ontap_volume:
 #      state: "{{ state }}"

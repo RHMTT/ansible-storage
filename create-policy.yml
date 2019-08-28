@@ -30,9 +30,9 @@
       policy_name: "{{ policy }}"
       vserver: "{{ vserver }}"
       client_match: 0.0.0.0/0
-      ro_rule: sys
-      rw_rule: sys
-      super_user_security: sys
+      ro_rule: any
+      rw_rule: any
+      super_user_security: any
       hostname: "{{ hostname }}"
       username: "{{ netapp_username }}"
       password: "{{ netapp_password}}"

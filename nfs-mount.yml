@@ -4,24 +4,27 @@
     volname:
       - "ansibleVol1"
       - "ansibleVol2"
-    state: mounted
+    state: present
+    mount: mounted
 
   tasks:
   - name: Update fstab file
     lineinfile:
+      state: "{{ state }}"
       path: /etc/fstab
       line: "{{data_ips}}:/{{ item }} /mnt/{{ item }} nfs defaults 0 0"
     with_items: "{{ volname }}"
 
   - name: Verify mount directory exists
     file:
+      state: "{{ state }}"
       path: "/mnt/{{ item }}"
       state: directory
     with_items: "{{ volname }}"
 
   - name: Mount nfs export
     mount:
-      state: "{{ state }}"
+      state: "{{ mount }}"
       path: "/mnt/{{ item }}"
       src: "{{data_ips}}:/{{ item }}"
       fstype: nfs

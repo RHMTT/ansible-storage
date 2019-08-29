@@ -5,8 +5,6 @@
     volname:
       - "ansibleVol1"
       - "ansibleVol2"
-    state: present
-    mount: mounted
 
   tasks:
   - name: Update fstab file

@@ -1,0 +1,5 @@
+motd_message: "I am the MOTD.  I am managed by {{ ansible_user }}"
+
+aggrs:
+  - { name: "aggr1", vol_name: "ansibleVol1", vol_size: "10", vol_size_unit: "gb"  }
+  - { name: "aggr1", vol_name: "ansibleVol2", vol_size: "5", vol_size_unit: "gb"  }

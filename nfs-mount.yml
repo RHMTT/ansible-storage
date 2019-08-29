@@ -31,7 +31,7 @@
     with_items: "{{ volname }}"
 
   - name: Show volume is mounted
-    command: df -h
+    command: "df -h | grep Vol"
     register: output
 
   - debug: var=output.stdout

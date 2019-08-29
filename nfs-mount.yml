@@ -6,7 +6,7 @@
       - "ansibleVol1"
       - "ansibleVol2"
     state: present
-    mount: mounted
+    mount: unmounted
 
   tasks:
   - name: Update fstab file

@@ -15,17 +15,18 @@
 
   - name: Verify mount directory exists
     file:
-      path: /mnt/ontap
+      path: /mnt/{{ item }}
       state: directory
+    with_items: "{{ volname }}"
 
   - name: Mount nfs export
     mount:
       state: "{{ state }}"
-      path: /mnt/ontap
+      path: /mnt/{{ volname }}
       src: "{{data_ips}}:/{{ item }}"
       fstype: nfs
     with_items: "{{ volname }}"
-    
+
   - name: Show volume is mounted
     command: df -h
     register: output

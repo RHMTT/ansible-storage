@@ -9,8 +9,8 @@
     #vserver: vserver1
     aggr: aggr1
     policy:
-      - export-svm_citi_student1-ansibleVol1
-      - export-svm_citi_student1-ansibleVol2
+      - export-svm_{{vserver_name}}-ansibleVol1
+      - export-svm_{{vserver_name}}-ansibleVol2
       #- export-svm_citi_student1
       #- ansiblePolicy
     state: present

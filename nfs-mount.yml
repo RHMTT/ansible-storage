@@ -1,14 +1,17 @@
 ---
 - hosts: web
   vars:
-    volname: ansibleVol1
-    state: unmounted
+    volname:
+      - ansibleVol1
+      - ansibleVol2
+    state: mounted
 
   tasks:
   - name: Update fstab file
     lineinfile:
       path: /etc/fstab
-      line: "{{data_ips}}:/{{ volname }} /mnt/ontap nfs defaults 0 0"
+      line: "{{data_ips}}:/{{ item }} /mnt/ontap nfs defaults 0 0"
+    with_items: {{volname}}
   - name: Verify mount directory exists
     file:
       path: /mnt/ontap
@@ -17,8 +20,9 @@
     mount:
       state: "{{ state }}"
       path: /mnt/ontap
-      src: "{{data_ips}}:/{{ volname }}"
+      src: "{{data_ips}}:/{{ item }}"
       fstype: nfs
+    with_items: {{volname}}
   - name: Show volume is mounted
     command: df -h
     register: output

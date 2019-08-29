@@ -2,8 +2,8 @@
 - hosts: web
   vars:
     volname:
-      - ansibleVol1
-      - ansibleVol2
+      - "ansibleVol1"
+      - "ansibleVol2"
     state: mounted
 
   tasks:

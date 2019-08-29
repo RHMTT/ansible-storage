@@ -10,19 +10,19 @@
   - name: Update fstab file
     lineinfile:
       path: /etc/fstab
-      line: "{{data_ips}}:/{{ item }} /mnt/ontap nfs defaults 0 0"
+      line: "{{data_ips}}:/{{ item }} /mnt/{{ item }} nfs defaults 0 0"
     with_items: "{{ volname }}"
 
   - name: Verify mount directory exists
     file:
-      path: /mnt/{{ item }}
+      path: "/mnt/{{ item }}"
       state: directory
     with_items: "{{ volname }}"
 
   - name: Mount nfs export
     mount:
       state: "{{ state }}"
-      path: /mnt/{{ volname }}
+      path: "/mnt/{{ volname }}"
       src: "{{data_ips}}:/{{ item }}"
       fstype: nfs
     with_items: "{{ volname }}"

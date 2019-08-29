@@ -32,7 +32,7 @@
     with_items: "{{ volname }}"
 
   - name: Show volume is mounted
-    shell: "df -h | grep Vol"
+    shell: "df -h"
     register: output
 
   - debug:

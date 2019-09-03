@@ -2,7 +2,12 @@
 - hosts: ontap
   gather_facts: false
   name: Setup ONTAP
+  connection: local
   vars:
+    login: &login
+      hostname: "{{ inventory_hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password}}"
     hostname: "{{ inventory_hostname }}"
     username: "admin"
     volname: ansibleVolume
@@ -23,10 +28,7 @@
       state: present
       name: "{{ item }}"
       vserver: "{{ vserver }}"
-      hostname: "{{ inventory_hostname }}"
-      username: "{{ netapp_username }}"
-      password: "{{ netapp_password}}"
-    connection: local
+      <<: *login
     with_items: "{{ policy }}"
     ignore_errors: yes
 
@@ -39,10 +41,7 @@
       ro_rule: any
       rw_rule: any
       super_user_security: any
-      hostname: "{{ hostname }}"
-      username: "{{ netapp_username }}"
-      password: "{{ netapp_password}}"
-    connection: local
+      <<: *login
     with_items: "{{ policy }}"
 #   - name: Create volume
 #    na_ontap_volume:

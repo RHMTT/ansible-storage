@@ -1,0 +1,34 @@
+---
+- hosts: ontap
+  gather_facts: false
+  connection: local
+  vars:
+    login: &login
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+
+- name: change nfs status
+    na_ontap_nfs:
+      state: present
+      service_state: started
+      vserver: "{{ vserver }}"
+      nfsv3: enabled
+      nfsv4: disabled
+      nfsv41: disabled
+      tcp: enabled
+      udp: enabled
+      vstorage_state: disabled
+      <<: *login
+  - name: Setup default rules
+    na_ontap_export_policy_rule:
+      state: present
+      policy_name: default
+      vserver: "{{ vserver }}"
+      client_match: 0.0.0.0/0
+      ro_rule: any
+      rw_rule: none
+      super_user_security: none
+      <<: *login

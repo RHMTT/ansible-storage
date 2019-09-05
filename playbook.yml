@@ -1,0 +1,17 @@
+---
+- hosts: ontap
+  name: Set Ontap SNMP String
+  gather_facts: no
+  connection: local
+
+  tasks:
+  - name: ensure the the desired snmp strings are present
+    na_ontap_snmp:
+      state: present
+      community_name: ansible_public
+      access_control: 'ro'
+      hostname: "{{ netapp_hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password }}"
+      https: true
+      validate_certs: false

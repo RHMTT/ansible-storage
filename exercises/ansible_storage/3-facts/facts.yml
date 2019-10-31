@@ -1,0 +1,22 @@
+---
+- hosts: ontap
+  gather_facts: no
+  connection: local
+
+  tasks:
+  - name: Gather Netapp Facts
+    na_ontap_gather_facts:
+      state: info
+      hostname: "{{ netapp_hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password }}"
+      https: true
+      validate_certs: false
+
+  - name: Show output
+    debug:
+      msg: "The ontap version number is: {{ ontap_facts.ontap_version }}"
+
+  - name: Show node serial number
+    debug:
+      msg: "The serial number is: {{ ontap_facts.system_node_info['citi_student1-01'].node_serial_number }}"

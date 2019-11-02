@@ -97,6 +97,7 @@ ansible_user=student1
 ansible_ssh_pass=r3dh4t
 ansible_port=22
 vserver=citi_student1
+data_ips=172.48.15.38
 
 [ontap]
 ontap-mgr ansible_host=172.48.0.80 netapp_hostname=172.48.0.80 netapp_username=admin netapp_password=redhat123

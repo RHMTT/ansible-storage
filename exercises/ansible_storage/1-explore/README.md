@@ -81,7 +81,7 @@ The scope of a `play` within a `playbook` is limited to the groups of hosts decl
 In this lab you will work with a file based inventory written in the **ini** format. Use the `cat` command to view the contents of your inventory:
 
 ```bash
-[student1@ansible ~]$ cat ~/lightbulb/lessons/lab_inventory/student1-instances
+[student1@ansible ~]$ cat ~/lightbulb/lessons/lab_inventory/inventory
 ```
 
 ```

@@ -59,7 +59,8 @@ Add a new task called *set motd*.
   - name: set motd
     na_ontap_motd:
       state: "{{ state }}"
-      vserver: "{{ vserver_name }}"
+      #Replace number below with your number + 1
+      vserver: "citi_student#"
       hostname: "{{ netapp_hostname }}"
       username: "{{ netapp_username }}"
       password: "{{ netapp_password }}"

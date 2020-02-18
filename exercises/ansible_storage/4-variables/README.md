@@ -137,7 +137,7 @@ aggrs:
   ```
 
 
-After that, create a playbook called `create-volume.yml` to create your volumes.
+After that, create a playbook called `create-volume.yml` in the parent directory to create your volumes.
 
 ```YAML
 - hosts: ontap

@@ -85,7 +85,7 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 Verify that the Ansible Playbook worked.  Login to ontap cluster and check the running configuration on the Cloud Ontap cluster manager.
 
 ```bash
-[student1@ansible storage-workshop]$ ssh admin@{{ip_address_of_cluster_mgr}}
+[student1@ansible storage-workshop]$ ssh admin@<ip_address_of_cluster_mgr>
 
 citi_student1::> system snmp show
 contact:
